@@ -1,6 +1,6 @@
 {
   "name": "@loonylabs/react-native-offline-sync",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Production-ready offline-first synchronization engine for React Native with WatermelonDB",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
