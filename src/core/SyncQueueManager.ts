@@ -8,10 +8,10 @@ import { createLogger } from '../utils';
  * Handles adding, processing, and managing sync queue items
  */
 export class SyncQueueManager {
-  private database: Database;
+  private database: Database | null;
   private logger = createLogger('[SyncQueueManager]', false);
 
-  constructor(database: Database, debug: boolean = false) {
+  constructor(database: Database | null, debug: boolean = false) {
     this.database = database;
     this.logger.setDebug(debug);
   }

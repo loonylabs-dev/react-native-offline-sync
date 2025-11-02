@@ -114,8 +114,13 @@ export class SyncEngine {
         });
       }
 
-      // Update pending changes count
-      await this.updatePendingCount();
+      // Update pending changes count (best effort - database might not be fully ready yet)
+      try {
+        await this.updatePendingCount();
+      } catch (error) {
+        this.logger.warn('Could not update pending count during initialization:', error);
+        // This is non-critical - count will be updated on first sync
+      }
 
       // Start background sync
       if (this.config.enableBackgroundSync) {
