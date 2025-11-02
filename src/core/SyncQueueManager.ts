@@ -130,7 +130,8 @@ export class SyncQueueManager {
       const count = await syncQueueCollection.query().fetchCount();
       return count;
     } catch (error) {
-      this.logger.error('Failed to get pending count:', error);
+      // Silently return 0 if database is not ready
+      // This can happen during initialization
       return 0;
     }
   }
