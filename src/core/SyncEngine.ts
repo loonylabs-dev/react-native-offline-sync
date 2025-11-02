@@ -254,6 +254,14 @@ export class SyncEngine {
   }
 
   /**
+   * Get network detector instance
+   * Useful for hooks like useNetworkStatus
+   */
+  getNetworkDetector(): NetworkDetector {
+    return this.networkDetector;
+  }
+
+  /**
    * Add a state listener
    */
   addListener(listener: SyncStatusListener): () => void {

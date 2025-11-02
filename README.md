@@ -116,7 +116,7 @@ function App() {
 
   return (
     <View>
-      <OfflineBanner networkDetector={syncEngine['networkDetector']} />
+      <OfflineBanner networkDetector={syncEngine.getNetworkDetector()} />
 
       <Button onPress={sync} disabled={isSyncing}>
         {isSyncing ? 'Syncing...' : `Sync (${pendingChanges} pending)`}
@@ -332,6 +332,12 @@ Returns server changes since last sync.
 ## Examples
 
 See the [example](./example) directory for a complete working example with WatermelonDB.
+
+## Documentation
+
+- **[Requirements & Conventions](docs/REQUIREMENTS.md)** - Required schema setup, soft deletes, API client
+- **[Error Handling Guide](docs/ERROR_HANDLING.md)** - Error types, recovery strategies, best practices
+- **[API Reference](docs/API.md)** - Complete API documentation
 
 ## Contributing
 
