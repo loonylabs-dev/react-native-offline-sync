@@ -591,9 +591,9 @@ Use `createTableSchemaWithSync()` helper.
 - ❌ No retry logic - Network can fail anytime
 - ❌ Breaking changes - Document migrations
 
-**Last Updated:** 2025-01-26
-**Version:** 0.1.0
+**Last Updated:** 2025-11-02
+**Version:** 1.0.0
 
 ---
 
-**Made with ❤️ by [LoonyLabs](https://github.com/loonylabs-dev)**
+**Made with ❤️ by [Loonylabs](https://github.com/loonylabs-dev)**

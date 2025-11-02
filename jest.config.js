@@ -33,4 +33,7 @@ module.exports = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
+  testPathIgnorePatterns: ['/node_modules/', '/__tests__/hooks.skip/'],
+  forceExit: true,
+  detectOpenHandles: false,
 };

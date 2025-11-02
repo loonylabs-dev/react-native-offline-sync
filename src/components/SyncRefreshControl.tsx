@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { RefreshControl, RefreshControlProps } from 'react-native';
 import { SyncEngine } from '../core/SyncEngine';
+import { createLogger } from '../utils/logger';
+
+const logger = createLogger('[SyncRefreshControl]');
 
 export interface SyncRefreshControlProps extends Omit<RefreshControlProps, 'refreshing' | 'onRefresh'> {
   syncEngine: SyncEngine;
@@ -27,7 +30,7 @@ export const SyncRefreshControl: React.FC<SyncRefreshControlProps> = ({
     try {
       await syncEngine.sync();
     } catch (error) {
-      console.error('Sync failed during refresh:', error);
+      logger.error('Sync failed during refresh:', error);
     } finally {
       setRefreshing(false);
     }

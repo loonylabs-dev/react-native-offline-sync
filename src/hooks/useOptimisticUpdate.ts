@@ -2,6 +2,9 @@ import { useState, useCallback } from 'react';
 import { Database, Model } from '@nozbe/watermelondb';
 import { SyncEngine } from '../core/SyncEngine';
 import { SyncOperation } from '../types';
+import { createLogger } from '../utils/logger';
+
+const logger = createLogger('[OptimisticUpdate]');
 
 /**
  * Hook for optimistic UI updates
@@ -51,7 +54,7 @@ export function useOptimisticUpdate(database: Database, syncEngine: SyncEngine) 
 
         // Trigger background sync (non-blocking)
         syncEngine.sync().catch((error) => {
-          console.warn('Background sync after optimistic update failed:', error);
+          logger.warn('Background sync after optimistic update failed:', error);
         });
 
         return record;

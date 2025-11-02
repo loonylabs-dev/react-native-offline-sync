@@ -23,7 +23,7 @@
     "isolatedModules": true,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
+    "emitDecoratorMetadata": false,
     "types": ["jest", "react-native"]
   },
   "include": ["src/**/*"],

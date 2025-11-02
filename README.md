@@ -329,10 +329,6 @@ Returns server changes since last sync.
 4. **Network Detection**: Disable if not needed
 5. **Debug Mode**: Disable in production
 
-## Examples
-
-See the [example](./example) directory for a complete working example with WatermelonDB.
-
 ## Documentation
 
 - **[Requirements & Conventions](docs/REQUIREMENTS.md)** - Required schema setup, soft deletes, API client
@@ -345,7 +341,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-MIT © [LloonyLabs](https://github.com/loonylabs-dev)
+MIT © [Loonylabs](https://github.com/loonylabs-dev)
 
 ## Support
 
@@ -353,10 +349,6 @@ MIT © [LloonyLabs](https://github.com/loonylabs-dev)
 - [Documentation](https://github.com/loonylabs-dev/react-native-offline-sync/tree/main/docs)
 
 ## Credits
-
-Extracted from production apps:
-- TrainSmart
-- Digital Cook Book
 
 Built with:
 - [WatermelonDB](https://nozbe.github.io/WatermelonDB/)
