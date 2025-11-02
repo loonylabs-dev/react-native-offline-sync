@@ -25,6 +25,11 @@ export class SyncQueueManager {
     recordId: string,
     payload: Record<string, any>
   ): Promise<void> {
+    if (!this.database) {
+      this.logger.error('Cannot add to queue: database not initialized');
+      throw new Error('Database not initialized');
+    }
+
     try {
       await this.database.write(async () => {
         const syncQueueCollection = this.database.get<SyncQueueItemModel>('sync_queue');
@@ -49,6 +54,11 @@ export class SyncQueueManager {
    * Get all queued items (not yet processed)
    */
   async getQueuedItems(): Promise<SyncQueueItem[]> {
+    if (!this.database) {
+      this.logger.warn('Cannot get queued items: database not initialized');
+      return [];
+    }
+
     try {
       const syncQueueCollection = this.database.get<SyncQueueItemModel>('sync_queue');
       const items = await syncQueueCollection.query().fetch();
@@ -64,6 +74,11 @@ export class SyncQueueManager {
    * Get items that haven't exceeded max retries
    */
   async getPendingItems(maxRetries: number): Promise<SyncQueueItem[]> {
+    if (!this.database) {
+      this.logger.warn('Cannot get pending items: database not initialized');
+      return [];
+    }
+
     try {
       const syncQueueCollection = this.database.get<SyncQueueItemModel>('sync_queue');
       const items = await syncQueueCollection
@@ -82,6 +97,11 @@ export class SyncQueueManager {
    * Get failed items (exceeded max retries)
    */
   async getFailedItems(maxRetries: number): Promise<SyncQueueItem[]> {
+    if (!this.database) {
+      this.logger.warn('Cannot get failed items: database not initialized');
+      return [];
+    }
+
     try {
       const syncQueueCollection = this.database.get<SyncQueueItemModel>('sync_queue');
       const items = await syncQueueCollection
@@ -100,6 +120,11 @@ export class SyncQueueManager {
    * Get count of pending changes
    */
   async getPendingCount(): Promise<number> {
+    if (!this.database) {
+      this.logger.warn('Cannot get pending count: database not initialized');
+      return 0;
+    }
+
     try {
       const syncQueueCollection = this.database.get<SyncQueueItemModel>('sync_queue');
       const count = await syncQueueCollection.query().fetchCount();
