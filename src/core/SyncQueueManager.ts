@@ -60,7 +60,7 @@ export class SyncQueueManager {
     }
 
     try {
-      const syncQueueCollection = this.database.get<SyncQueueItemModel>('sync_queue');
+      const syncQueueCollection = this.database!.get<SyncQueueItemModel>('sync_queue');
       const items = await syncQueueCollection.query().fetch();
 
       return items.map((item) => this.modelToQueueItem(item));
@@ -80,7 +80,7 @@ export class SyncQueueManager {
     }
 
     try {
-      const syncQueueCollection = this.database.get<SyncQueueItemModel>('sync_queue');
+      const syncQueueCollection = this.database!.get<SyncQueueItemModel>('sync_queue');
       const items = await syncQueueCollection
         .query(Q.where('retry_count', Q.lt(maxRetries)))
         .fetch();
@@ -103,7 +103,7 @@ export class SyncQueueManager {
     }
 
     try {
-      const syncQueueCollection = this.database.get<SyncQueueItemModel>('sync_queue');
+      const syncQueueCollection = this.database!.get<SyncQueueItemModel>('sync_queue');
       const items = await syncQueueCollection
         .query(Q.where('retry_count', Q.gte(maxRetries)))
         .fetch();
@@ -126,7 +126,7 @@ export class SyncQueueManager {
     }
 
     try {
-      const syncQueueCollection = this.database.get<SyncQueueItemModel>('sync_queue');
+      const syncQueueCollection = this.database!.get<SyncQueueItemModel>('sync_queue');
       const count = await syncQueueCollection.query().fetchCount();
       return count;
     } catch (error) {
