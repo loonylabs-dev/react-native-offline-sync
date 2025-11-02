@@ -32,7 +32,7 @@ export class SyncQueueManager {
 
     try {
       await this.database.write(async () => {
-        const syncQueueCollection = this.database.get<SyncQueueItemModel>('sync_queue');
+        const syncQueueCollection = this.database!.get<SyncQueueItemModel>('sync_queue');
         await syncQueueCollection.create((item) => {
           item.operation = operation;
           item.tableName = tableName;
@@ -139,9 +139,14 @@ export class SyncQueueManager {
    * Mark an item as processed (remove from queue)
    */
   async markAsProcessed(itemId: string): Promise<void> {
+    if (!this.database) {
+      this.logger.warn('Cannot mark as processed: database not initialized');
+      return;
+    }
+
     try {
       await this.database.write(async () => {
-        const syncQueueCollection = this.database.get<SyncQueueItemModel>('sync_queue');
+        const syncQueueCollection = this.database!.get<SyncQueueItemModel>('sync_queue');
         const item = await syncQueueCollection.find(itemId);
         await item.markAsDeleted();
       });
@@ -157,9 +162,14 @@ export class SyncQueueManager {
    * Increment retry count and update error message
    */
   async incrementRetry(itemId: string, errorMessage: string): Promise<void> {
+    if (!this.database) {
+      this.logger.warn('Cannot increment retry: database not initialized');
+      return;
+    }
+
     try {
       await this.database.write(async () => {
-        const syncQueueCollection = this.database.get<SyncQueueItemModel>('sync_queue');
+        const syncQueueCollection = this.database!.get<SyncQueueItemModel>('sync_queue');
         const item = await syncQueueCollection.find(itemId);
         await item.update((record) => {
           record.retryCount = record.retryCount + 1;
@@ -178,11 +188,16 @@ export class SyncQueueManager {
    * Clear all failed items from the queue
    */
   async clearFailedItems(maxRetries: number): Promise<number> {
+    if (!this.database) {
+      this.logger.warn('Cannot clear failed items: database not initialized');
+      return 0;
+    }
+
     try {
       const failedItems = await this.getFailedItems(maxRetries);
 
       await this.database.write(async () => {
-        const syncQueueCollection = this.database.get<SyncQueueItemModel>('sync_queue');
+        const syncQueueCollection = this.database!.get<SyncQueueItemModel>('sync_queue');
         for (const item of failedItems) {
           const record = await syncQueueCollection.find(item.id);
           await record.markAsDeleted();
@@ -201,11 +216,16 @@ export class SyncQueueManager {
    * Clear all items from the queue
    */
   async clearAllItems(): Promise<number> {
+    if (!this.database) {
+      this.logger.warn('Cannot clear all items: database not initialized');
+      return 0;
+    }
+
     try {
       const allItems = await this.getQueuedItems();
 
       await this.database.write(async () => {
-        const syncQueueCollection = this.database.get<SyncQueueItemModel>('sync_queue');
+        const syncQueueCollection = this.database!.get<SyncQueueItemModel>('sync_queue');
         for (const item of allItems) {
           const record = await syncQueueCollection.find(item.id);
           await record.markAsDeleted();
